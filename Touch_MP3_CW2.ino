@@ -1,12 +1,3 @@
-#include <SFEMP3Shield.h>
-#include <SFEMP3ShieldConfig.h>
-#include <SFEMP3Shieldmainpage.h>
-
-#include <SFEMP3Shield.h>
-#include <SFEMP3ShieldConfig.h>
-#include <SFEMP3Shieldmainpage.h>
-
-
 /*******************************************************************************
 
  Bare Conductive Touch MP3 player
