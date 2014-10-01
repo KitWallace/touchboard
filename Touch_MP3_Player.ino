@@ -19,7 +19,7 @@
    10 - decrease volume one step
    11 - increase volume one step
 
- The player plays TRACK0nn.mp3 files with consecutive track numbers nn in range 0 to 999
+ The player plays TRACKnnn.mp3 files with consecutive track numbers nnn in range 0 to 999
 
  In the absence of input, the player plays one track after another
 
