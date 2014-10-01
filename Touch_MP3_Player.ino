@@ -23,8 +23,10 @@
 
  In the absence of input, the player plays one track after another
 
- Chris Wallace  1 Oct 2014
+ The SD card is read at FULL speed rather than half speed in an attempt to reduce jitter
 
+ Chris Wallace  1 Oct 2014
+ 
  Adapted from the base Touch_MP3 code
 
  Based on code by Jim Lindblom and plenty of inspiration from the Freescale
@@ -65,8 +67,8 @@ byte result;
 int lastPlayed = 0;
 bool playing = false;
 int vol = 30;
-int finalTrack;
-#define interTrackGap 1000
+int finalTrack; 
+#define interTrackGap 500
 #define volStep 5
 
 // touch behaviour definitions
@@ -168,16 +170,16 @@ void startTrack (int i) {
     stopTrack();
   char * name = filename(i);
   MP3player.playMP3(name);
-  Serial.print("playing track ");
-  Serial.println(i);
+  Serial.print("playing ");
+  Serial.println(name);
   lastPlayed = i;
   playing = true;
 }
 
 void stopTrack() {
   MP3player.stopTrack();
-  Serial.print("stopping track ");
-  Serial.println(lastPlayed);
+  Serial.print("stopping ");
+  Serial.println(filename(lastPlayed));
   playing = false;
 }
 
@@ -199,14 +201,14 @@ void prevTrack() {
 void pauseTrack() {
   MP3player.pauseMusic();
   Serial.print("paused track ");
-  Serial.println(lastPlayed);
+  Serial.println(filename(lastPlayed));
   playing = false;
 }
 
 void resumeTrack() {
   MP3player.resumeMusic();
   Serial.print("resuming track ");
-  Serial.println(lastPlayed);
+  Serial.println(filename(lastPlayed));
   playing = true;
 }
 
