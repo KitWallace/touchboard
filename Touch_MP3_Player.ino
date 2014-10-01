@@ -23,8 +23,7 @@
 
  In the absence of input, the player plays one track after another
 
- The SD card is read at FULL speed rather than half speed in an attempt to reduce jitter
-
+ Chris Wallace  1 Oct 2014
 
  Adapted from the base Touch_MP3 code
 
@@ -45,11 +44,6 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
 
-
-  CW - added volume control using Electrodes 10 (down) and 11 (up)
-     - added code to skip on to the next track if a track finishes
-     - refactored the code for readablity
-     - imlement controls for start, stop, next and previous track.
 *******************************************************************************/
 
 
@@ -167,7 +161,7 @@ int pinTouched() {
 }
 
 
-//  actionn functions
+//  action functions
 
 void startTrack (int i) {
   if (playing)
