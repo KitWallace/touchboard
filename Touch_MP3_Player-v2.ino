@@ -4,20 +4,36 @@
  Bare Conductive Touch MP3 player
  ------------------------------
 
- Touch_MP3_player-v2.ino - touch triggered MP3 playback
+ Touch_MP3_player.ino - touch triggered MP3 playback
 
 
- This version implements the normal controls on an MP3 Player via touch pins:
+  This version implements the normal controls on an MP3 Player via touch pins. 
+  Albums at root level are named ALBUM000, ALBUM001 sequentially.
+  Within an album, tracks are named TRACK000, TRACK001.mp3 sequentially.
 
-  ###### 
+  
+  Pin 11  is a control pin - this must be touched while a function pin is touched next and previous roll roundthe the start of the sequence.
+  
+  Albums 
+       next Album  pin 0
+       restartalbum Pin 1
+       prev Album Pin 2
+       
+   Tracks 
+       next track pin 3
+       restart track pin 4
+       prev track pin 5
+       puase/resume Track pin 6
+       
+   Volume
+       decrease volume pin 7
+       increase volume pin 8
+      
+  In the absence of input, the player plays one track after another
 
- The player plays TRACKnnn.mp3 files with consecutive track numbers nnn in range 0 to 999
+  The SD card is read at FULL speed rather than half speed in an attempt to reduce jitter
 
- In the absence of input, the player plays one track after another
-
- The SD card is read at FULL speed rather than half speed in an attempt to reduce jitter
-
- Chris Wallace  4 Oct 2014
+ Chris Wallace  5 Oct 2014
  
  Adapted from the base Touch_MP3 code
 
@@ -68,14 +84,17 @@ int albumCount;
 
 // touch behaviour definitions
 #define controlPin 11
-#define nextTrackPin 0
-#define prevTrackPin 2
-#define nextAlbumPin 4
-#define prevAlbumPin 6
-#define pausePin 7
 
-#define volDownPin 8
-#define volUpPin 9
+#define nextAlbumPin 0
+#define restartAlbumPin 1
+#define prevAlbumPin 2
+#define nextTrackPin 3
+#define restartTrackPin 4
+#define prevTrackPin 5
+#define pausePin 6
+
+#define volDownPin 7
+#define volUpPin 8
 
 // sd card instantiation
 SdFat sd;
@@ -129,10 +148,14 @@ void readTouchInputs() {
     switch (pinTouched()) {
       case nextTrackPin:
         nextTrack(); break;
+      case restartTrackPin:
+        startTrack(currentTrack); break;
       case prevTrackPin:
         prevTrack(); break;
       case nextAlbumPin:
         nextAlbum(); break;
+      case restartAlbumPin:
+        openAlbum(currentAlbum); break;
       case prevAlbumPin:
         prevAlbum(); break;
       case pausePin:
